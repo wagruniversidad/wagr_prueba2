@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
+  devise_for :users
   get 'welcome/index'
   
   resource :posts
-  root 'welcome#index'
- 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :images
+  
+  root to: 'welcome#index'
 
+  namespace 'api' do
+    namespace 'v1' do
+      post 'auth_user' => 'authentication#authenticate_user'
+    end
+  end
  
-
 end
